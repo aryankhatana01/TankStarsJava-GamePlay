@@ -45,8 +45,8 @@ public class PlayScreen implements Screen {
         this.game = game;
         hud = new Hud(game.batch);
         gameCam = new OrthographicCamera();
-        gamePort = new FitViewport(MyGdxGame.V_WIDTH/MyGdxGame.PPM,
-                MyGdxGame.V_HEIGHT/MyGdxGame.PPM, gameCam);
+        gamePort = new FitViewport(MyGdxGame.V_WIDTH / MyGdxGame.PPM,
+                MyGdxGame.V_HEIGHT / MyGdxGame.PPM, gameCam);
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("Map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1/MyGdxGame.PPM);
@@ -56,23 +56,6 @@ public class PlayScreen implements Screen {
         b2dr = new Box2DDebugRenderer();
 
         tank = new Tank(world);
-//        BodyDef bdef = new BodyDef();
-//        PolygonShape shape = new PolygonShape();
-//        FixtureDef fdef = new FixtureDef();
-//        Body body;
-
-//        for(RectangleMapObject obj : map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
-//            Rectangle rect = obj.getRectangle();
-//
-//            bdef.type = BodyDef.BodyType.StaticBody;
-//            bdef.position.set(rect.getX() + rect.getWidth()/2, rect.getY() + rect.getHeight()/2);
-//
-//            body = world.createBody(bdef);
-//
-//            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2);
-//            fdef.shape = shape;
-//            body.createFixture(fdef);
-//        }
         for(PolylineMapObject obj : map.getLayers().get(1).getObjects().getByType(PolylineMapObject.class)){
             Shape shape;
             shape = createPolyLine(obj);
