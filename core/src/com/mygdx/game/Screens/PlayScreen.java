@@ -45,6 +45,9 @@ public class PlayScreen implements Screen {
     private Tank tank1;
     private Tank2 tank2;
 
+    private int h1 = 100;
+    private int h2 = 100;
+
     private Projectile projectile1;
     private Projectile2 projectile2;
 
@@ -160,6 +163,21 @@ public class PlayScreen implements Screen {
 
     }
 
+    public void collisionDetection() {
+        float ProjPosX = projectile1.b2body.getPosition().x;
+        float ProjPosY = projectile1.b2body.getPosition().y;
+//        System.out.println(ProjPosX + " " + ProjPosY);
+        float Tank2X = tank2.b2body.getPosition().x;
+        float Tank2Y = tank2.b2body.getPosition().y;
+//        System.out.println(Tank2X + " " + Tank2Y);
+        if (ProjPosY <= Tank2Y+(tank2.getHeight()*1.4)) {
+            if ((ProjPosX >= Tank2X-tank2.tankHitRadius) && (ProjPosX <= Tank2X+tank2.tankHitRadius)) {
+//                System.out.println("Hit");
+                h2=50;
+            }
+        }
+    }
+
     public void update(float dt){
         world.step(1/60f, 6, 2);
         tank1.update(dt);
@@ -174,6 +192,8 @@ public class PlayScreen implements Screen {
                 tanksFlg=0;
             }
         }
+        collisionDetection();
+        hud.update(dt, h1, h2);
         handleInput(tanksFlg);
         gameCam.update();
         renderer.setView(gameCam);

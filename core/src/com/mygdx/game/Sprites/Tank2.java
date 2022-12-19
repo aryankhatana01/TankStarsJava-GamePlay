@@ -13,7 +13,7 @@ public class Tank2 extends Sprite {
 
     private Texture tankimg;
 
-    public int tankHitRadius = 10;
+    public float tankHitRadius = (float) 0.5;
 
     public Tank2(World world){
         this.world = world;

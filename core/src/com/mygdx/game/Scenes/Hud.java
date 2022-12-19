@@ -15,8 +15,8 @@ public class Hud {
     public Stage stage;
     private Viewport viewport;
 
-    private Integer health1;
-    private Integer health2;
+    private int health1;
+    private int health2;
 
     Label p1Score;
     Label p2Score;
@@ -48,6 +48,13 @@ public class Hud {
         table.add(p2Score).expandX().padLeft(10);
 
         stage.addActor(table);
+    }
+
+    public void update(float dt, int h1, int h2) {
+        health1 = h1;
+        health2 = h2;
+        p1Score.setText(health1);
+        p2Score.setText(health2);
     }
 
 
