@@ -1,5 +1,6 @@
 package com.mygdx.game.Sprites;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.*;
@@ -9,11 +10,19 @@ public class Tank2 extends Sprite {
     public World world;
     public Body b2body;
 
+    private Texture tankimg;
+
     public Tank2(World world){
         this.world = world;
         defineTank();
+        tankimg = new Texture("Tank1-removebg-re.png");
+        setBounds(0,0, 16/MyGdxGame.PPM, 16/MyGdxGame.PPM);
+        setRegion(tankimg);
     }
 
+    public void update(float dt) {
+        setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
+    }
     public void defineTank(){
         BodyDef bdef = new BodyDef();
         bdef.position.set(320/MyGdxGame.PPM, 80/MyGdxGame.PPM);

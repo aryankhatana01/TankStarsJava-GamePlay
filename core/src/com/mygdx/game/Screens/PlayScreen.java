@@ -116,6 +116,7 @@ public class PlayScreen implements Screen {
     public void update(float dt){
         world.step(1/60f, 6, 2);
         tank1.update(dt);
+        tank2.update(dt);
         handleInput();
         gameCam.update();
         renderer.setView(gameCam);
@@ -138,9 +139,15 @@ public class PlayScreen implements Screen {
         b2dr.render(world, gameCam.combined);
 
         game.batch.setProjectionMatrix(gameCam.combined);
+
         game.batch.begin();
         tank1.draw(game.batch);
         game.batch.end();
+
+        game.batch.begin();
+        tank2.draw(game.batch);
+        game.batch.end();
+
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
