@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="25" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="6">
+ <tileset firstgid="1" name="NES - Super Mario Bros - Tileset" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="1554" columns="37">
+  <image source="../../AP Project Code/assets/NES - Super Mario Bros - Tileset.png" width="680" height="764"/>
+ </tileset>
+ <tileset firstgid="1555" source="tileset_gutter.tsx"/>
+ <layer id="1" name="Background" width="25" height="13" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJyLYGVgiBjFQxYrszMwqLLT1nxXKKaFPcjm08IebOZT0x585lPDHmLMJ8YeYbZRTCwGAKvtXdA=
+  </data>
+ </layer>
+ <objectgroup id="2" name="Terrian">
+  <object id="3" x="0.970913" y="159.877">
+   <polyline points="0,0 109.39,0 206.481,-97.0913 303.572,-0.647275 399.045,-0.323638"/>
+  </object>
+  <object id="4" x="399.369" y="159.23">
+   <polyline points="0,0 -0.323638,-159.23 -399.369,-158.906 -399.045,0.647275"/>
+  </object>
+ </objectgroup>
+</map>
