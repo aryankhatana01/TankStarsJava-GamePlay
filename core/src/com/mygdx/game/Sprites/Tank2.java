@@ -3,6 +3,7 @@ package com.mygdx.game.Sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.MyGdxGame;
 
@@ -37,6 +38,7 @@ public class Tank2 extends Sprite {
 
         fdef.shape = shape;
         b2body.createFixture(fdef);
+        b2body.setTransform(b2body.getPosition(), (float) 3.14);
     }
 
 }

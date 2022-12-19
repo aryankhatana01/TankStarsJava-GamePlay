@@ -86,8 +86,8 @@ public class PlayScreen implements Screen {
 
     public void handleInput(int tanksFlg){
 //        int tanksFlg = 0;
-        float currentAngle = (float) 0.087;
-        System.out.println(currentAngle);
+//        float currentAngle = (float) 0.087;
+//        System.out.println(currentAngle);
 //        System.out.println(tanksFlg);
         if (tanksFlg==0) {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank1.b2body.getLinearVelocity().x <= 0.37){
@@ -98,11 +98,11 @@ public class PlayScreen implements Screen {
                 tank1.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank1.b2body.getWorldCenter(), true);
 
             if (Gdx.input.isKeyPressed(Input.Keys.UP)){
-                tank1.b2body.setTransform(tank1.b2body.getPosition(), currentAngle);
+                tank1.b2body.setTransform(tank1.b2body.getPosition(), (float) ((tank1.b2body.getAngle())+0.087));
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-                tank1.b2body.setTransform(tank1.b2body.getPosition(), currentAngle);
+                tank1.b2body.setTransform(tank1.b2body.getPosition(), (float) ((tank1.b2body.getAngle())-0.087));
             }
         }else {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank2.b2body.getLinearVelocity().x <= 0.37){
@@ -111,6 +111,14 @@ public class PlayScreen implements Screen {
 
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank2.b2body.getLinearVelocity().x >= -0.37)
                 tank2.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank2.b2body.getWorldCenter(), true);
+
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)){
+                tank2.b2body.setTransform(tank2.b2body.getPosition(), (float) ((tank2.b2body.getAngle())-0.087));
+            }
+
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+                tank2.b2body.setTransform(tank2.b2body.getPosition(), (float) ((tank2.b2body.getAngle())+0.087));
+            }
         }
 
 //        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
