@@ -15,7 +15,7 @@ public class Projectile extends Sprite {
         this.world = world;
         defineProj();
         projimg = new Texture("fireball.png");
-        setBounds(0,0, 16/MyGdxGame.PPM, 16/MyGdxGame.PPM);
+        setBounds(0,0, 8/MyGdxGame.PPM, 8/MyGdxGame.PPM);
         setRegion(projimg);
     }
 
