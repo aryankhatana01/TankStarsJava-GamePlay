@@ -86,6 +86,7 @@ public class PlayScreen implements Screen {
 
     public void handleInput(){
         int tanksFlg = 0;
+        System.out.println(tanksFlg);
         if (tanksFlg==0) {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank1.b2body.getLinearVelocity().x <= 0.37){
                 tank1.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank1.b2body.getWorldCenter(), true);
@@ -94,22 +95,27 @@ public class PlayScreen implements Screen {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank1.b2body.getLinearVelocity().x >= -0.37)
                 tank1.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank1.b2body.getWorldCenter(), true);
         }else {
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank1.b2body.getLinearVelocity().x <= 0.37){
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank2.b2body.getLinearVelocity().x <= 0.37){
                 tank2.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank2.b2body.getWorldCenter(), true);
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank1.b2body.getLinearVelocity().x >= -0.37)
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank2.b2body.getLinearVelocity().x >= -0.37)
                 tank2.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank2.b2body.getWorldCenter(), true);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            tanksFlg=1;
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            if (tanksFlg==0) {
+                tanksFlg=1;
+            }else {
+                tanksFlg=0;
+            }
         }
 
     }
 
     public void update(float dt){
         world.step(1/60f, 6, 2);
+        tank1.update(dt);
         handleInput();
         gameCam.update();
         renderer.setView(gameCam);
@@ -131,6 +137,10 @@ public class PlayScreen implements Screen {
 
         b2dr.render(world, gameCam.combined);
 
+        game.batch.setProjectionMatrix(gameCam.combined);
+        game.batch.begin();
+        tank1.draw(game.batch);
+        game.batch.end();
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 

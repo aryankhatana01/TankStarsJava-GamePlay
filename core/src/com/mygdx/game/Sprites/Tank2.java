@@ -16,7 +16,7 @@ public class Tank2 extends Sprite {
 
     public void defineTank(){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(300/MyGdxGame.PPM, 80/MyGdxGame.PPM);
+        bdef.position.set(320/MyGdxGame.PPM, 80/MyGdxGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
