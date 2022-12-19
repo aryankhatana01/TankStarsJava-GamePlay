@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Sprites.Tank;
+import com.mygdx.game.Sprites.Tank2;
 import com.sun.tools.javac.jvm.Code;
 
 public class PlayScreen implements Screen {
@@ -39,7 +40,8 @@ public class PlayScreen implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
 
-    private Tank tank;
+    private Tank tank1;
+    private Tank2 tank2;
 
     public PlayScreen(MyGdxGame game){
         this.game = game;
@@ -55,7 +57,8 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0, -1), true);
         b2dr = new Box2DDebugRenderer();
 
-        tank = new Tank(world);
+        tank1 = new Tank(world);
+        tank2 = new Tank2(world);
         for(PolylineMapObject obj : map.getLayers().get(1).getObjects().getByType(PolylineMapObject.class)){
             Shape shape;
             shape = createPolyLine(obj);
@@ -82,14 +85,27 @@ public class PlayScreen implements Screen {
     }
 
     public void handleInput(){
+        int tanksFlg = 0;
+        if (tanksFlg==0) {
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank1.b2body.getLinearVelocity().x <= 0.37){
+                tank1.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank1.b2body.getWorldCenter(), true);
+            }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank.b2body.getLinearVelocity().x <= 0.37){
-            tank.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank.b2body.getWorldCenter(), true);
-//            tank.b2body.setLinearVelocity(0,0);
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank1.b2body.getLinearVelocity().x >= -0.37)
+                tank1.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank1.b2body.getWorldCenter(), true);
+        }else {
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank1.b2body.getLinearVelocity().x <= 0.37){
+                tank2.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank2.b2body.getWorldCenter(), true);
+            }
+
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank1.b2body.getLinearVelocity().x >= -0.37)
+                tank2.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank2.b2body.getWorldCenter(), true);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank.b2body.getLinearVelocity().x >= -0.37)
-            tank.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank.b2body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            tanksFlg=1;
+        }
+
     }
 
     public void update(float dt){
