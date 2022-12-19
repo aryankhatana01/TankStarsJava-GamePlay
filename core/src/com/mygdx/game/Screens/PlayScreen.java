@@ -173,7 +173,12 @@ public class PlayScreen implements Screen {
         if (ProjPosY <= Tank2Y+(tank2.getHeight()*1.4)) {
             if ((ProjPosX >= Tank2X-tank2.tankHitRadius) && (ProjPosX <= Tank2X+tank2.tankHitRadius)) {
 //                System.out.println("Hit");
-                h2=50;
+                float distance = Tank2X - ProjPosX;
+                if (distance<0) {
+                    distance = distance*-1;
+                }
+                int scoreSub = (int) (50-(distance*100));
+                h2=scoreSub;
             }
         }
     }
