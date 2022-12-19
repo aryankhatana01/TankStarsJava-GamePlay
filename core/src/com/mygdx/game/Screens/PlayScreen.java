@@ -84,9 +84,11 @@ public class PlayScreen implements Screen {
         return cs;
     }
 
-    public void handleInput(){
-        int tanksFlg = 0;
-        System.out.println(tanksFlg);
+    public void handleInput(int tanksFlg){
+//        int tanksFlg = 0;
+        float currentAngle = (float) 0.087;
+        System.out.println(currentAngle);
+//        System.out.println(tanksFlg);
         if (tanksFlg==0) {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank1.b2body.getLinearVelocity().x <= 0.37){
                 tank1.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank1.b2body.getWorldCenter(), true);
@@ -94,6 +96,14 @@ public class PlayScreen implements Screen {
 
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank1.b2body.getLinearVelocity().x >= -0.37)
                 tank1.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank1.b2body.getWorldCenter(), true);
+
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)){
+                tank1.b2body.setTransform(tank1.b2body.getPosition(), currentAngle);
+            }
+
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+                tank1.b2body.setTransform(tank1.b2body.getPosition(), currentAngle);
+            }
         }else {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank2.b2body.getLinearVelocity().x <= 0.37){
                 tank2.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank2.b2body.getWorldCenter(), true);
@@ -103,13 +113,13 @@ public class PlayScreen implements Screen {
                 tank2.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank2.b2body.getWorldCenter(), true);
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            if (tanksFlg==0) {
-                tanksFlg=1;
-            }else {
-                tanksFlg=0;
-            }
-        }
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+//            if (tanksFlg==0) {
+//                tanksFlg=1;
+//            }else {
+//                tanksFlg=0;
+//            }
+//        }
 
     }
 
@@ -117,7 +127,15 @@ public class PlayScreen implements Screen {
         world.step(1/60f, 6, 2);
         tank1.update(dt);
         tank2.update(dt);
-        handleInput();
+        int tanksFlg=0;
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            if (tanksFlg==0) {
+                tanksFlg=1;
+            }else {
+                tanksFlg=0;
+            }
+        }
+        handleInput(tanksFlg);
         gameCam.update();
         renderer.setView(gameCam);
     }

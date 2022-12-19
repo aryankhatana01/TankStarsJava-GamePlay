@@ -12,6 +12,8 @@ public class Tank extends Sprite {
 
     private Texture tankimg;
 
+    public int tankHitRadius = 10;
+
     public Tank(World world){
         this.world = world;
         defineTank();

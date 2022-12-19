@@ -6,28 +6,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.MyGdxGame;
 
-public class Tank2 extends Sprite {
+public class Projectile extends Sprite {
     public World world;
     public Body b2body;
 
-    private Texture tankimg;
-
-    public int tankHitRadius = 10;
-
-    public Tank2(World world){
+    public Projectile(World world){
         this.world = world;
-        defineTank();
-        tankimg = new Texture("Tank1-removebg-re.png");
-        setBounds(0,0, 16/MyGdxGame.PPM, 16/MyGdxGame.PPM);
-        setRegion(tankimg);
+        defineProj();
+
     }
 
-    public void update(float dt) {
-        setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
-    }
-    public void defineTank(){
+
+    public void defineProj(){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(320/MyGdxGame.PPM, 80/MyGdxGame.PPM);
+        bdef.position.set(80/MyGdxGame.PPM, 80/MyGdxGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
