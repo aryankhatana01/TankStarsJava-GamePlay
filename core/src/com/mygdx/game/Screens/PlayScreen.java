@@ -20,6 +20,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Scenes.Hud;
+import com.mygdx.game.Sprites.Projectile;
+import com.mygdx.game.Sprites.Projectile2;
 import com.mygdx.game.Sprites.Tank;
 import com.mygdx.game.Sprites.Tank2;
 import com.sun.tools.javac.jvm.Code;
@@ -43,6 +45,9 @@ public class PlayScreen implements Screen {
     private Tank tank1;
     private Tank2 tank2;
 
+    private Projectile projectile1;
+    private Projectile2 projectile2;
+
     public PlayScreen(MyGdxGame game){
         this.game = game;
         hud = new Hud(game.batch);
@@ -59,6 +64,9 @@ public class PlayScreen implements Screen {
 
         tank1 = new Tank(world);
         tank2 = new Tank2(world);
+        projectile1 = new Projectile(world);
+        projectile2 = new Projectile2(world);
+
         for(PolylineMapObject obj : map.getLayers().get(1).getObjects().getByType(PolylineMapObject.class)){
             Shape shape;
             shape = createPolyLine(obj);
@@ -92,32 +100,52 @@ public class PlayScreen implements Screen {
         if (tanksFlg==0) {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank1.b2body.getLinearVelocity().x <= 0.37){
                 tank1.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank1.b2body.getWorldCenter(), true);
+                projectile1.b2body.applyLinearImpulse(new Vector2(0.1f, 0), projectile1.b2body.getWorldCenter(), true);
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank1.b2body.getLinearVelocity().x >= -0.37)
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank1.b2body.getLinearVelocity().x >= -0.37){
                 tank1.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank1.b2body.getWorldCenter(), true);
+                projectile1.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), projectile1.b2body.getWorldCenter(), true);
+            }
 
             if (Gdx.input.isKeyPressed(Input.Keys.UP)){
                 tank1.b2body.setTransform(tank1.b2body.getPosition(), (float) ((tank1.b2body.getAngle())+0.087));
+                projectile1.b2body.setTransform(projectile1.b2body.getPosition(), (float) ((projectile1.b2body.getAngle())+0.087));
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                 tank1.b2body.setTransform(tank1.b2body.getPosition(), (float) ((tank1.b2body.getAngle())-0.087));
+                projectile1.b2body.setTransform(projectile1.b2body.getPosition(), (float) ((projectile1.b2body.getAngle())-0.087));
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+                Vector2 force = new Vector2((float) (Math.cos(projectile1.b2body.getAngle())*200), (float) (Math.sin(projectile1.b2body.getAngle())*200));
+                projectile1.b2body.applyForce(force, projectile1.b2body.getPosition(), true);
             }
         }else {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank2.b2body.getLinearVelocity().x <= 0.37){
                 tank2.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank2.b2body.getWorldCenter(), true);
+                projectile2.b2body.applyLinearImpulse(new Vector2(0.1f, 0), projectile2.b2body.getWorldCenter(), true);
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank2.b2body.getLinearVelocity().x >= -0.37)
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank2.b2body.getLinearVelocity().x >= -0.37) {
                 tank2.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank2.b2body.getWorldCenter(), true);
+                projectile2.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), projectile2.b2body.getWorldCenter(), true);
+            }
 
             if (Gdx.input.isKeyPressed(Input.Keys.UP)){
                 tank2.b2body.setTransform(tank2.b2body.getPosition(), (float) ((tank2.b2body.getAngle())-0.087));
+                projectile2.b2body.setTransform(projectile2.b2body.getPosition(), (float) ((projectile2.b2body.getAngle())-0.087));
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                 tank2.b2body.setTransform(tank2.b2body.getPosition(), (float) ((tank2.b2body.getAngle())+0.087));
+                projectile2.b2body.setTransform(projectile2.b2body.getPosition(), (float) ((projectile2.b2body.getAngle())+0.087));
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+                Vector2 force = new Vector2((float) (Math.cos(projectile2.b2body.getAngle())*200), (float) (Math.sin(projectile2.b2body.getAngle())*200));
+                projectile2.b2body.applyForce(force, projectile2.b2body.getPosition(), true);
             }
         }
 
