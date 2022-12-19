@@ -10,10 +10,18 @@ import com.mygdx.game.MyGdxGame;
 public class Projectile2 extends Sprite {
     public World world;
     public Body b2body;
+    private Texture projimg;
 
     public Projectile2(World world){
         this.world = world;
         defineProf();
+        projimg = new Texture("fireball.png");
+        setBounds(0,0, 16/MyGdxGame.PPM, 16/MyGdxGame.PPM);
+        setRegion(projimg);
+    }
+
+    public void update(float dt) {
+        setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
     }
 
     public void defineProf(){

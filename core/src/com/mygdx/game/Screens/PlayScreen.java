@@ -59,12 +59,13 @@ public class PlayScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map, 1/MyGdxGame.PPM);
         gameCam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
 
-        world = new World(new Vector2(0, -1), true);
+        world = new World(new Vector2(0, -2), true);
         b2dr = new Box2DDebugRenderer();
 
         tank1 = new Tank(world);
-        tank2 = new Tank2(world);
         projectile1 = new Projectile(world);
+
+        tank2 = new Tank2(world);
         projectile2 = new Projectile2(world);
 
         for(PolylineMapObject obj : map.getLayers().get(1).getObjects().getByType(PolylineMapObject.class)){
@@ -163,6 +164,8 @@ public class PlayScreen implements Screen {
         world.step(1/60f, 6, 2);
         tank1.update(dt);
         tank2.update(dt);
+        projectile1.update(dt);
+        projectile2.update(dt);
         int tanksFlg=0;
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (tanksFlg==0) {
@@ -200,6 +203,14 @@ public class PlayScreen implements Screen {
 
         game.batch.begin();
         tank2.draw(game.batch);
+        game.batch.end();
+
+        game.batch.begin();
+        projectile1.draw(game.batch);
+        game.batch.end();
+
+        game.batch.begin();
+        projectile2.draw(game.batch);
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
