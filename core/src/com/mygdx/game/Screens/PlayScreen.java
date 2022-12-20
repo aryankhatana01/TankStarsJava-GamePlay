@@ -193,6 +193,9 @@ public class PlayScreen implements Screen {
                 float distance = Tank2X - ProjPosX;
                 if (distance<0) {
                     distance = distance*-1;
+                    tank2.b2body.applyLinearImpulse(new Vector2(-0.05f, 0), tank2.b2body.getWorldCenter(), true);
+                }else {
+                    tank2.b2body.applyLinearImpulse(new Vector2(0.05f, 0), tank2.b2body.getWorldCenter(), true);
                 }
                 scoreSub = (int) (50-(distance*10));
 //                projectile1.dispose();
@@ -221,6 +224,9 @@ public class PlayScreen implements Screen {
                 float distance = Tank1X - ProjPosX;
                 if (distance<0) {
                     distance = distance*-1;
+                    tank1.b2body.applyLinearImpulse(new Vector2(-0.05f, 0), tank1.b2body.getWorldCenter(), true);
+                }else {
+                    tank1.b2body.applyLinearImpulse(new Vector2(0.05f, 0), tank1.b2body.getWorldCenter(), true);
                 }
                 scoreSub = (int) (50-(distance*10));
             }
