@@ -170,7 +170,7 @@ public class PlayScreen implements Screen {
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
-                Vector2 force = new Vector2((float) (Math.cos(tank2.b2body.getAngle())*200), (float) (Math.sin(tank2.b2body.getAngle())*200));
+                Vector2 force = new Vector2((float) (Math.cos(tank2.b2body.getAngle())*projectile2.power), (float) (Math.sin(tank2.b2body.getAngle())*projectile2.power));
                 projectile2 = new Projectile2(world, tank2.b2body.getPosition().x);
                 projectile2.b2body.applyForce(force, projectile2.b2body.getPosition(), true);
             }
