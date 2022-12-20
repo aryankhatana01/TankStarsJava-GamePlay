@@ -98,6 +98,10 @@ public class PlayScreen implements Screen {
         return cs;
     }
 
+    private float convertRad2Deg(float rad) {
+        return (float) ((rad*180)/3.14);
+    }
+
     public void handleInput(int tanksFlg){
 //        int tanksFlg = 0;
 //        float currentAngle = (float) 0.087;
@@ -244,7 +248,7 @@ public class PlayScreen implements Screen {
         }
         collisionDetection();
         collisionDetectionP2();
-        hud.update(dt, h1, h2);
+        hud.update(dt, h1, h2, convertRad2Deg(tank1.b2body.getAngle()), 180-(convertRad2Deg(tank2.b2body.getAngle())));
         handleInput(tanksFlg);
         gameCam.update();
         renderer.setView(gameCam);

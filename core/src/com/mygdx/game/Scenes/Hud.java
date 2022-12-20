@@ -18,14 +18,23 @@ public class Hud {
     private int health1;
     private int health2;
 
+    private float angle1;
+    private float angle2;
+
     Label p1Score;
     Label p2Score;
     Label p1Text;
     Label p2Text;
 
+    Label p1Angle;
+    Label p2Angle;
+
     public Hud(SpriteBatch batch){
         health1 = 100;
         health2 = 100;
+
+        angle1 = 0;
+        angle2 = 0;
 
         viewport = new FitViewport(MyGdxGame.V_WIDTH, MyGdxGame.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, batch);
@@ -36,6 +45,10 @@ public class Hud {
 
         p1Score = new Label(String.format("%03d", health1), new Label.LabelStyle(new BitmapFont(), Color.BLUE));
         p2Score = new Label(String.format("%03d", health2), new Label.LabelStyle(new BitmapFont(), Color.BLUE));
+
+        p1Angle = new Label(String.format("%03f", angle1), new Label.LabelStyle(new BitmapFont(), Color.BLUE));
+        p2Angle = new Label(String.format("%03f", angle2), new Label.LabelStyle(new BitmapFont(), Color.BLUE));
+
         p1Text = new Label("PLAYER 1", new Label.LabelStyle(new BitmapFont(), Color.GREEN));
         p2Text = new Label("PLAYER 2", new Label.LabelStyle(new BitmapFont(), Color.GREEN));
 
@@ -46,15 +59,26 @@ public class Hud {
         table.row();
         table.add(p1Score).expandX().padLeft(10);
         table.add(p2Score).expandX().padLeft(10);
+        table.row();
+        table.add(p1Angle).expandX().padLeft(10);
+        table.add(p2Angle).expandX().padLeft(10);
+
 
         stage.addActor(table);
     }
 
-    public void update(float dt, int h1, int h2) {
+    public void update(float dt, int h1, int h2, float ang1, float ang2) {
         health1 = h1;
         health2 = h2;
+
+        angle1 = ang1;
+        angle2 = ang2;
+
         p1Score.setText(health1);
         p2Score.setText(health2);
+
+        p1Angle.setText((int) angle1);
+        p2Angle.setText((int) angle2);
     }
 
 
