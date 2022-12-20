@@ -180,6 +180,7 @@ public class PlayScreen implements Screen {
         float Tank2X = tank2.b2body.getPosition().x;
         float Tank2Y = tank2.b2body.getPosition().y;
         System.out.println("tank: " + Tank2X + " " + Tank2Y);
+        int scoreSub=0;
         if (ProjPosY <= Tank2Y+(tank2.getHeight()*1.4)) {
             if ((ProjPosX >= Tank2X-tank2.tankHitRadius) && (ProjPosX <= Tank2X+tank2.tankHitRadius)) {
 //                System.out.println("Hit");
@@ -187,8 +188,7 @@ public class PlayScreen implements Screen {
                 if (distance<0) {
                     distance = distance*-1;
                 }
-                int scoreSub = (int) (50-(distance*10));
-                h2=scoreSub;
+                scoreSub = (int) (50-(distance*10));
 //                projectile1.dispose();
             }
 //            projectile1.dispose();
@@ -196,6 +196,7 @@ public class PlayScreen implements Screen {
         }
         // 0.05 is an arbitrary number
         if (ProjPosY <= Tank2Y+0.05) {
+            h2-=scoreSub;
             projectile1.dispose();
         }
     }
@@ -207,6 +208,7 @@ public class PlayScreen implements Screen {
         float Tank1X = tank1.b2body.getPosition().x;
         float Tank1Y = tank1.b2body.getPosition().y;
 //        System.out.println(Tank2X + " " + Tank2Y);
+        int scoreSub=0;
         if (ProjPosY <= Tank1Y+(tank1.getHeight()*1.4)) {
             if ((ProjPosX >= Tank1X-tank1.tankHitRadius) && (ProjPosX <= Tank1X+tank1.tankHitRadius)) {
 //                System.out.println("Hit");
@@ -214,12 +216,12 @@ public class PlayScreen implements Screen {
                 if (distance<0) {
                     distance = distance*-1;
                 }
-                int scoreSub = (int) (50-(distance*10));
-                h1=scoreSub;
+                scoreSub = (int) (50-(distance*10));
             }
         }
 
         if (ProjPosY <= Tank1Y+0.05) {
+            h1-=scoreSub;
             projectile2.dispose();
         }
     }
