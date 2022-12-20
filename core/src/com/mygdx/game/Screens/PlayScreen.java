@@ -365,6 +365,14 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
+        if (h1<=0) {
+            game.setScreen(new GameOverP2(game));
+        }
+
+        if (h2<=0) {
+            game.setScreen(new GameOverP1(game));
+        }
+
     }
 
     @Override
