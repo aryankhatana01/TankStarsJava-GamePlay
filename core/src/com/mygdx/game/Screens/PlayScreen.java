@@ -66,7 +66,7 @@ public class PlayScreen implements Screen {
         b2dr = new Box2DDebugRenderer();
 
         tank1 = new Tank(world);
-        projectile1 = new Projectile(world);
+        projectile1 = new Projectile(world, 80);
 
         tank2 = new Tank2(world);
         projectile2 = new Projectile2(world);
@@ -125,6 +125,7 @@ public class PlayScreen implements Screen {
             if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
                 Vector2 force = new Vector2((float) (Math.cos(projectile1.b2body.getAngle())*220), (float) (Math.sin(projectile1.b2body.getAngle())*220));
                 projectile1.b2body.applyForce(force, projectile1.b2body.getPosition(), true);
+//                projectile1 = new Projectile(world, tank1.b2body.getPosition().x);
             }
         }else {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank2.b2body.getLinearVelocity().x <= 0.37){
@@ -207,6 +208,10 @@ public class PlayScreen implements Screen {
                 int scoreSub = (int) (50-(distance*10));
                 h1=scoreSub;
             }
+        }
+
+        if (ProjPosY <= Tank1Y+0.05) {
+            projectile2.dispose();
         }
     }
 

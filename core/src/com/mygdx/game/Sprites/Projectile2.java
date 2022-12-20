@@ -26,7 +26,7 @@ public class Projectile2 extends Sprite {
 
     public void defineProf(){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(330/MyGdxGame.PPM, 80/MyGdxGame.PPM);
+        bdef.position.set(330/MyGdxGame.PPM, 100/MyGdxGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -37,6 +37,13 @@ public class Projectile2 extends Sprite {
         fdef.shape = shape;
         b2body.createFixture(fdef);
         b2body.setTransform(b2body.getPosition(), (float) 3.14);
+    }
+
+    public void dispose() {
+        projimg.dispose();
+//        world.destroyBody(b2body);
+        world.step(0 ,0 ,0);
+        b2body.setActive(false);
     }
 
 }
