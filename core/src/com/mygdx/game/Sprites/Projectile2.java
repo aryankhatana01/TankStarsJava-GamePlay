@@ -11,6 +11,7 @@ public class Projectile2 extends Sprite {
     public World world;
     public Body b2body;
     private Texture projimg;
+    public int power = 180;
 
     public Projectile2(World world, float x){
         this.world = world;

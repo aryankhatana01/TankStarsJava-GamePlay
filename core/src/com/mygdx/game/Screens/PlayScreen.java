@@ -129,9 +129,20 @@ public class PlayScreen implements Screen {
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
-                Vector2 force = new Vector2((float) (Math.cos(tank1.b2body.getAngle())*200), (float) (Math.sin(tank1.b2body.getAngle())*200));
+                Vector2 force = new Vector2((float) (Math.cos(tank1.b2body.getAngle())*projectile1.power), (float) (Math.sin(tank1.b2body.getAngle())*projectile1.power));
                 projectile1 = new Projectile(world, tank1.b2body.getPosition().x);
                 projectile1.b2body.applyForce(force, projectile1.b2body.getPosition(), true);
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.U)) {
+                projectile1.power = projectile1.power+10;
+//                System.out.println(projectile1.power);
+//                projectile1.b2body.setTransform(projectile1.b2body.getPosition(), (float) ((projectile1.b2body.getAngle())-0.087));
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+                projectile1.power = projectile1.power-10;
+//                projectile1.b2body.setTransform(projectile1.b2body.getPosition(), (float) ((projectile1.b2body.getAngle())-0.087));
             }
 
 //            if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
@@ -164,6 +175,17 @@ public class PlayScreen implements Screen {
                 projectile2.b2body.applyForce(force, projectile2.b2body.getPosition(), true);
             }
 
+            if (Gdx.input.isKeyJustPressed(Input.Keys.U)) {
+                projectile2.power = projectile2.power+10;
+//                System.out.println(projectile1.power);
+//                projectile1.b2body.setTransform(projectile1.b2body.getPosition(), (float) ((projectile1.b2body.getAngle())-0.087));
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+                projectile2.power = projectile2.power-10;
+//                projectile1.b2body.setTransform(projectile1.b2body.getPosition(), (float) ((projectile1.b2body.getAngle())-0.087));
+            }
+
 //            if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
 //                projectile2 = new Projectile2(world, tank2.b2body.getPosition().x);
 //            }
@@ -182,10 +204,10 @@ public class PlayScreen implements Screen {
     public void collisionDetection() {
         float ProjPosX = projectile1.b2body.getPosition().x;
         float ProjPosY = projectile1.b2body.getPosition().y;
-        System.out.println("proj: " + ProjPosX + " " + ProjPosY);
+//        System.out.println("proj: " + ProjPosX + " " + ProjPosY);
         float Tank2X = tank2.b2body.getPosition().x;
         float Tank2Y = tank2.b2body.getPosition().y;
-        System.out.println("tank: " + Tank2X + " " + Tank2Y);
+//        System.out.println("tank: " + Tank2X + " " + Tank2Y);
         int scoreSub=0;
         if (ProjPosY <= Tank2Y+(tank2.getHeight()*1.4)) {
             if ((ProjPosX >= Tank2X-tank2.tankHitRadius) && (ProjPosX <= Tank2X+tank2.tankHitRadius)) {
