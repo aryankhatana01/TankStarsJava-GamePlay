@@ -3,6 +3,7 @@ package com.mygdx.game.Sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.game.MyGdxGame;
 
@@ -39,6 +40,8 @@ public class Projectile extends Sprite {
 
     public void dispose() {
         projimg.dispose();
+        Vector2 newPos = new Vector2(40000, 40000);
+        b2body.setTransform(newPos, 0);
 //        world.destroyBody(b2body);
         world.step(0 ,0 ,0);
         b2body.setActive(false);

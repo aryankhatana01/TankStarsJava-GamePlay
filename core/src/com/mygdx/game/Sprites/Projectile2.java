@@ -41,6 +41,8 @@ public class Projectile2 extends Sprite {
 
     public void dispose() {
         projimg.dispose();
+        Vector2 newPos = new Vector2(40000, 40000);
+        b2body.setTransform(newPos, 0);
 //        world.destroyBody(b2body);
         world.step(0 ,0 ,0);
         b2body.setActive(false);
