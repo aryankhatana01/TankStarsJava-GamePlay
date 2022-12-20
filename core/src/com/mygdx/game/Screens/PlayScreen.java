@@ -219,7 +219,7 @@ public class PlayScreen implements Screen {
                 }else {
                     tank2.b2body.applyLinearImpulse(new Vector2(0.05f, 0), tank2.b2body.getWorldCenter(), true);
                 }
-                scoreSub = (int) (50-(distance*10));
+                scoreSub = (int) (20-(distance*10));
 //                projectile1.dispose();
             }
 //            projectile1.dispose();
