@@ -208,18 +208,37 @@ public class PlayScreen implements Screen {
         float Tank2X = tank2.b2body.getPosition().x;
         float Tank2Y = tank2.b2body.getPosition().y;
 //        System.out.println("tank: " + Tank2X + " " + Tank2Y);
+        float Tank1X = tank1.b2body.getPosition().x;
+        int whichTnk = 0;
         int scoreSub=0;
         if (ProjPosY <= Tank2Y+(tank2.getHeight()*1.4)) {
-            if ((ProjPosX >= Tank2X-tank2.tankHitRadius) && (ProjPosX <= Tank2X+tank2.tankHitRadius)) {
+            if ((ProjPosX >= Tank2X-tank2.tankHitRadius) && (ProjPosX <= Tank2X+tank2.tankHitRadius) || (ProjPosX >= Tank1X-tank1.tankHitRadius) && (ProjPosX <= Tank1X+tank1.tankHitRadius)) {
 //                System.out.println("Hit");
-                float distance = Tank2X - ProjPosX;
-                if (distance<0) {
-                    distance = distance*-1;
-                    tank2.b2body.applyLinearImpulse(new Vector2(-0.05f, 0), tank2.b2body.getWorldCenter(), true);
+                if ((ProjPosX >= Tank2X-tank2.tankHitRadius) && (ProjPosX <= Tank2X+tank2.tankHitRadius)) {
+                    whichTnk = 0;
                 }else {
-                    tank2.b2body.applyLinearImpulse(new Vector2(0.05f, 0), tank2.b2body.getWorldCenter(), true);
+                    whichTnk = 1;
                 }
-                scoreSub = (int) (20-(distance*10));
+
+                if (whichTnk==0) {
+                    float distance = Tank2X - ProjPosX;
+                    if (distance<0) {
+                        distance = distance*-1;
+                        tank2.b2body.applyLinearImpulse(new Vector2(-0.05f, 0), tank2.b2body.getWorldCenter(), true);
+                    }else {
+                        tank2.b2body.applyLinearImpulse(new Vector2(0.05f, 0), tank2.b2body.getWorldCenter(), true);
+                    }
+                    scoreSub = (int) (20-(distance*10));
+                }else {
+                    float distance = Tank1X - ProjPosX;
+                    if (distance<0) {
+                        distance = distance*-1;
+                        tank1.b2body.applyLinearImpulse(new Vector2(-0.05f, 0), tank1.b2body.getWorldCenter(), true);
+                    }else {
+                        tank1.b2body.applyLinearImpulse(new Vector2(0.05f, 0), tank1.b2body.getWorldCenter(), true);
+                    }
+                    scoreSub = (int) (20-(distance*10));
+                }
 //                projectile1.dispose();
             }
 //            projectile1.dispose();
@@ -227,7 +246,11 @@ public class PlayScreen implements Screen {
         }
         // 0.05 is an arbitrary number
         if (ProjPosY <= Tank2Y+0.05) {
-            h2-=scoreSub;
+            if (whichTnk==0) {
+                h2-=scoreSub;
+            }else {
+                h1-=scoreSub;
+            }
             projectile1.dispose();
         }
     }
@@ -239,24 +262,47 @@ public class PlayScreen implements Screen {
         float Tank1X = tank1.b2body.getPosition().x;
         float Tank1Y = tank1.b2body.getPosition().y;
 //        System.out.println(Tank2X + " " + Tank2Y);
+        float Tank2X = tank2.b2body.getPosition().x;
+        int whichTnk = 0;
         int scoreSub=0;
         if (ProjPosY <= Tank1Y+(tank1.getHeight()*1.4)) {
-            if ((ProjPosX >= Tank1X-tank1.tankHitRadius) && (ProjPosX <= Tank1X+tank1.tankHitRadius)) {
+            if ((ProjPosX >= Tank2X-tank2.tankHitRadius) && (ProjPosX <= Tank2X+tank2.tankHitRadius) || (ProjPosX >= Tank1X-tank1.tankHitRadius) && (ProjPosX <= Tank1X+tank1.tankHitRadius)) {
 //                System.out.println("Hit");
-                float distance = Tank1X - ProjPosX;
-                if (distance<0) {
-                    distance = distance*-1;
-                    tank1.b2body.applyLinearImpulse(new Vector2(-0.05f, 0), tank1.b2body.getWorldCenter(), true);
+                if ((ProjPosX >= Tank1X-tank1.tankHitRadius) && (ProjPosX <= Tank1X+tank1.tankHitRadius)) {
+                    whichTnk = 0;
                 }else {
-                    tank1.b2body.applyLinearImpulse(new Vector2(0.05f, 0), tank1.b2body.getWorldCenter(), true);
+                    whichTnk = 1;
                 }
-                scoreSub = (int) (50-(distance*10));
-            }
-        }
 
-        if (ProjPosY <= Tank1Y+0.05) {
-            h1-=scoreSub;
-            projectile2.dispose();
+                if (whichTnk==0) {
+                    float distance = Tank1X - ProjPosX;
+                    if (distance<0) {
+                        distance = distance*-1;
+                        tank1.b2body.applyLinearImpulse(new Vector2(-0.05f, 0), tank1.b2body.getWorldCenter(), true);
+                    }else {
+                        tank1.b2body.applyLinearImpulse(new Vector2(0.05f, 0), tank1.b2body.getWorldCenter(), true);
+                    }
+                    scoreSub = (int) (20-(distance*10));
+                }else {
+                    float distance = Tank2X - ProjPosX;
+                    if (distance<0) {
+                        distance = distance*-1;
+                        tank2.b2body.applyLinearImpulse(new Vector2(-0.05f, 0), tank2.b2body.getWorldCenter(), true);
+                    }else {
+                        tank2.b2body.applyLinearImpulse(new Vector2(0.05f, 0), tank2.b2body.getWorldCenter(), true);
+                    }
+                    scoreSub = (int) (20-(distance*10));
+                }
+            }
+
+            if (ProjPosY <= Tank1Y+0.05) {
+                if (whichTnk==0) {
+                    h1-=scoreSub;
+                }else {
+                    h2-=scoreSub;
+                }
+                projectile2.dispose();
+            }
         }
     }
 
