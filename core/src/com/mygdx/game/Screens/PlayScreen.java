@@ -276,7 +276,7 @@ public class PlayScreen implements Screen {
         }
         collisionDetection();
         collisionDetectionP2();
-        hud.update(dt, h1, h2, convertRad2Deg(tank1.b2body.getAngle()), 180-(convertRad2Deg(tank2.b2body.getAngle())));
+        hud.update(dt, h1, h2, convertRad2Deg(tank1.b2body.getAngle()), 180-(convertRad2Deg(tank2.b2body.getAngle())), projectile1.power, projectile2.power);
         handleInput(tanksFlg);
         gameCam.update();
         renderer.setView(gameCam);
