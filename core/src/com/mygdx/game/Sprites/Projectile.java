@@ -25,7 +25,7 @@ public class Projectile extends Sprite {
 
     public void defineProj(float x){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(x/MyGdxGame.PPM, 100/MyGdxGame.PPM);
+        bdef.position.set(x, 100/MyGdxGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 

@@ -26,6 +26,8 @@ import com.mygdx.game.Sprites.Tank;
 import com.mygdx.game.Sprites.Tank2;
 import com.sun.tools.javac.jvm.Code;
 
+import java.util.concurrent.TimeUnit;
+
 public class PlayScreen implements Screen {
 
     private final MyGdxGame game;
@@ -62,14 +64,14 @@ public class PlayScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map, 1/MyGdxGame.PPM);
         gameCam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
 
-        world = new World(new Vector2(0, -5), true);
+        world = new World(new Vector2(0, -1), true);
         b2dr = new Box2DDebugRenderer();
 
         tank1 = new Tank(world);
-        projectile1 = new Projectile(world, 80);
+        projectile1 = new Projectile(world, (float) 0.8);
 
         tank2 = new Tank2(world);
-        projectile2 = new Projectile2(world);
+        projectile2 = new Projectile2(world, (float) 3.3);
 
         for(PolylineMapObject obj : map.getLayers().get(1).getObjects().getByType(PolylineMapObject.class)){
             Shape shape;
@@ -123,9 +125,12 @@ public class PlayScreen implements Screen {
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
-                Vector2 force = new Vector2((float) (Math.cos(projectile1.b2body.getAngle())*220), (float) (Math.sin(projectile1.b2body.getAngle())*220));
+                Vector2 force = new Vector2((float) (Math.cos(projectile1.b2body.getAngle())*200), (float) (Math.sin(projectile1.b2body.getAngle())*200));
                 projectile1.b2body.applyForce(force, projectile1.b2body.getPosition(), true);
-//                projectile1 = new Projectile(world, tank1.b2body.getPosition().x);
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+                projectile1 = new Projectile(world, tank1.b2body.getPosition().x);
             }
         }else {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank2.b2body.getLinearVelocity().x <= 0.37){
@@ -149,8 +154,12 @@ public class PlayScreen implements Screen {
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
-                Vector2 force = new Vector2((float) (Math.cos(projectile2.b2body.getAngle())*220), (float) (Math.sin(projectile2.b2body.getAngle())*220));
+                Vector2 force = new Vector2((float) (Math.cos(projectile2.b2body.getAngle())*200), (float) (Math.sin(projectile2.b2body.getAngle())*200));
                 projectile2.b2body.applyForce(force, projectile2.b2body.getPosition(), true);
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+                projectile2 = new Projectile2(world, tank2.b2body.getPosition().x);
             }
         }
 

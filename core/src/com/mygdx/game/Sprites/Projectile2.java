@@ -12,9 +12,9 @@ public class Projectile2 extends Sprite {
     public Body b2body;
     private Texture projimg;
 
-    public Projectile2(World world){
+    public Projectile2(World world, float x){
         this.world = world;
-        defineProf();
+        defineProf(x);
         projimg = new Texture("fireball.png");
         setBounds(0,0, 8/MyGdxGame.PPM, 8/MyGdxGame.PPM);
         setRegion(projimg);
@@ -24,9 +24,9 @@ public class Projectile2 extends Sprite {
         setPosition(b2body.getPosition().x - getWidth()/2, b2body.getPosition().y - getHeight()/2);
     }
 
-    public void defineProf(){
+    public void defineProf(float x){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(330/MyGdxGame.PPM, 100/MyGdxGame.PPM);
+        bdef.position.set(x, 100/MyGdxGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
