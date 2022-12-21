@@ -24,6 +24,9 @@ import com.mygdx.game.Sprites.*;
 import com.sun.tools.javac.jvm.Code;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 public class PlayScreen implements Screen {
@@ -70,6 +73,10 @@ public class PlayScreen implements Screen {
 
         world = new World(new Vector2(0, -1), true);
         b2dr = new Box2DDebugRenderer();
+
+        Collection c = new ArrayList();
+        c.add(tank1);
+        Iterator iter = c.iterator();
 
         tank1 = new Tank(world);
         projectile1 = new Projectile(world, (float) 4000);
