@@ -55,6 +55,8 @@ public class PlayScreen implements Screen {
     private AirDrop airdrop1, airdrop2;
     private ExitButton exitbutton;
 
+    private int tanksFlg=0;
+
     public PlayScreen(MyGdxGame game){
         this.game = game;
         hud = new Hud(game.batch);
@@ -134,14 +136,14 @@ public class PlayScreen implements Screen {
 
             }
 
-            if (tank1.fuel<100) {
-                if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
-                    if (tank1.fuel<100){
-                        tank1.fuel+=3;
-                    }
-//                    System.out.println("no key");
-                }
-            }
+//            if (tank1.fuel<100) {
+//                if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+//                    if (tank1.fuel<100){
+//                        tank1.fuel+=3;
+//                    }
+////                    System.out.println("no key");
+//                }
+//            }
 //            System.out.println(tank1.fuel);
 
             if (Gdx.input.isKeyPressed(Input.Keys.UP)){
@@ -158,6 +160,7 @@ public class PlayScreen implements Screen {
                 Vector2 force = new Vector2((float) (Math.cos(tank1.b2body.getAngle())*projectile1.power), (float) (Math.sin(tank1.b2body.getAngle())*projectile1.power));
                 projectile1 = new Projectile(world, tank1.b2body.getPosition().x);
                 projectile1.b2body.applyForce(force, projectile1.b2body.getPosition(), true);
+                tank1.fuel = 100;
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.U)) {
@@ -201,7 +204,7 @@ public class PlayScreen implements Screen {
 ////                    System.out.println("no key");
 //                }
 //            }
-            System.out.println(tank2.fuel);
+//            System.out.println(tank2.fuel);
 
             if (Gdx.input.isKeyPressed(Input.Keys.UP)){
                 tank2.b2body.setTransform(tank2.b2body.getPosition(), (float) ((tank2.b2body.getAngle())-0.087));
@@ -217,6 +220,7 @@ public class PlayScreen implements Screen {
                 Vector2 force = new Vector2((float) (Math.cos(tank2.b2body.getAngle())*projectile2.power), (float) (Math.sin(tank2.b2body.getAngle())*projectile2.power));
                 projectile2 = new Projectile2(world, tank2.b2body.getPosition().x);
                 projectile2.b2body.applyForce(force, projectile2.b2body.getPosition(), true);
+                tank2.fuel = 100;
             }
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.U)) {
@@ -449,16 +453,15 @@ public class PlayScreen implements Screen {
         projectile2.update(dt);
 
         exitbutton.update(dt);
-        int tanksFlg=0;
-        if (tank2.fuel<100) {
-            if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
-                if (tank2.fuel<100){
-                    tank2.fuel+=3;
-                }
-//                    System.out.println("no key");
-            }
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+//        if (tank2.fuel<100) {
+//            if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+//                if (tank2.fuel<100){
+//                    tank2.fuel+=3;
+//                }
+////                    System.out.println("no key");
+//            }
+//        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             if (tanksFlg==0) {
                 tanksFlg=1;
             }else {
