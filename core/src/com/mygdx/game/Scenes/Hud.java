@@ -23,6 +23,8 @@ public class Hud {
 
     private int power1;
     private int power2;
+    private int fuel1;
+    private int fuel2;
 
     Label p1Score;
     Label p2Score;
@@ -34,6 +36,8 @@ public class Hud {
 
     Label p1Power;
     Label p2Power;
+    Label P1fuel;
+    Label P2fuel;
 
     public Hud(SpriteBatch batch){
         health1 = 100;
@@ -44,6 +48,9 @@ public class Hud {
 
         angle1 = 0;
         angle2 = 0;
+
+        fuel1 = 100;
+        fuel2 = 100;
 
         viewport = new FitViewport(MyGdxGame.V_WIDTH, MyGdxGame.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, batch);
@@ -56,6 +63,11 @@ public class Hud {
         p2Score = new Label(String.format("%03d", health2), new Label.LabelStyle(new BitmapFont(), Color.BLUE));
         p1Score.setFontScale(0.5F);
         p2Score.setFontScale(0.5F);
+
+        P1fuel = new Label(String.format("%03d", fuel1), new Label.LabelStyle(new BitmapFont(), Color.BLUE));
+        P2fuel = new Label(String.format("%03d", fuel2), new Label.LabelStyle(new BitmapFont(), Color.BLUE));
+        P1fuel.setFontScale(0.5F);
+        P2fuel.setFontScale(0.5F);
 
         p1Angle = new Label(String.format("%03f", angle1), new Label.LabelStyle(new BitmapFont(), Color.BLUE));
         p2Angle = new Label(String.format("%03f", angle2), new Label.LabelStyle(new BitmapFont(), Color.BLUE));
@@ -83,12 +95,15 @@ public class Hud {
         table.row();
         table.add(p1Power).expandX().padLeft(10);
         table.add(p2Power).expandX().padLeft(10);
+        table.row();
+        table.add(P1fuel).expandX().padLeft(10);
+        table.add(P2fuel).expandX().padLeft(10);
 
 
         stage.addActor(table);
     }
 
-    public void update(float dt, int h1, int h2, float ang1, float ang2, int p1, int p2) {
+    public void update(float dt, int h1, int h2, float ang1, float ang2, int p1, int p2, int f1, int f2) {
         health1 = h1;
         health2 = h2;
 
@@ -98,6 +113,9 @@ public class Hud {
         power1 = p1;
         power2 = p2;
 
+        fuel1 = f1;
+        fuel2 = f2;
+
         p1Score.setText(health1);
         p2Score.setText(health2);
 
@@ -106,6 +124,9 @@ public class Hud {
 
         p1Power.setText(power1);
         p2Power.setText(power2);
+
+        P1fuel.setText(fuel1);
+        P2fuel.setText(fuel2);
     }
 
 
