@@ -26,7 +26,7 @@ import com.mygdx.game.Sprites.Tank;
 import com.mygdx.game.Sprites.Tank2;
 import com.sun.tools.javac.jvm.Code;
 
-import java.io.File;
+import java.io.*;
 import java.util.concurrent.TimeUnit;
 
 public class PlayScreen implements Screen {
@@ -109,15 +109,34 @@ public class PlayScreen implements Screen {
 //        System.out.println(currentAngle);
 //        System.out.println(tanksFlg);
         if (tanksFlg==0) {
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank1.b2body.getLinearVelocity().x <= 0.37){
-                tank1.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank1.b2body.getWorldCenter(), true);
+            if (tank1.fuel>0) {
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank1.b2body.getLinearVelocity().x <= 0.37){
+                    tank1.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank1.b2body.getWorldCenter(), true);
+                    if (tank1.fuel>0){
+                        tank1.fuel-=2;
+                    }
 //                projectile1.b2body.applyLinearImpulse(new Vector2(0.1f, 0), projectile1.b2body.getWorldCenter(), true);
+                }
+
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank1.b2body.getLinearVelocity().x >= -0.37){
+                    tank1.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank1.b2body.getWorldCenter(), true);
+                    if (tank1.fuel>0){
+                        tank1.fuel-=2;
+                    }
+//                projectile1.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), projectile1.b2body.getWorldCenter(), true);
+                }
+
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank1.b2body.getLinearVelocity().x >= -0.37){
-                tank1.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank1.b2body.getWorldCenter(), true);
-//                projectile1.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), projectile1.b2body.getWorldCenter(), true);
+            if (tank1.fuel<100) {
+                if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+                    if (tank1.fuel<100){
+                        tank1.fuel+=3;
+                    }
+//                    System.out.println("no key");
+                }
             }
+//            System.out.println(tank1.fuel);
 
             if (Gdx.input.isKeyPressed(Input.Keys.UP)){
                 tank1.b2body.setTransform(tank1.b2body.getPosition(), (float) ((tank1.b2body.getAngle())+0.087));
@@ -150,15 +169,33 @@ public class PlayScreen implements Screen {
 //                projectile1 = new Projectile(world, tank1.b2body.getPosition().x);
 //            }
         }else {
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank2.b2body.getLinearVelocity().x <= 0.37){
-                tank2.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank2.b2body.getWorldCenter(), true);
+            if (tank2.fuel>0) {
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && tank2.b2body.getLinearVelocity().x <= 0.37){
+                    tank2.b2body.applyLinearImpulse(new Vector2(0.1f, 0), tank2.b2body.getWorldCenter(), true);
+                    if (tank2.fuel>0){
+                        tank2.fuel-=2;
+                    }
 //                projectile2.b2body.applyLinearImpulse(new Vector2(0.1f, 0), projectile2.b2body.getWorldCenter(), true);
+                }
+
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank2.b2body.getLinearVelocity().x >= -0.37) {
+                    tank2.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank2.b2body.getWorldCenter(), true);
+                    if (tank2.fuel>0){
+                        tank2.fuel-=2;
+                    }
+//                projectile2.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), projectile2.b2body.getWorldCenter(), true);
+                }
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && tank2.b2body.getLinearVelocity().x >= -0.37) {
-                tank2.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), tank2.b2body.getWorldCenter(), true);
-//                projectile2.b2body.applyLinearImpulse(new Vector2(-0.1f, 0), projectile2.b2body.getWorldCenter(), true);
-            }
+//            if (tank2.fuel<100) {
+//                if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+//                    if (tank2.fuel<100){
+//                        tank2.fuel+=3;
+//                    }
+////                    System.out.println("no key");
+//                }
+//            }
+            System.out.println(tank2.fuel);
 
             if (Gdx.input.isKeyPressed(Input.Keys.UP)){
                 tank2.b2body.setTransform(tank2.b2body.getPosition(), (float) ((tank2.b2body.getAngle())-0.087));
@@ -218,9 +255,39 @@ public class PlayScreen implements Screen {
         return path;
     }
 
-    public void serializeGame() {
+    public void serializeGame() throws IOException {
         String pathToFolder = folderCreation();
         System.out.println("assets/" + pathToFolder);
+        // Tank1
+        File player1 = new File(pathToFolder + "/player1.bin");
+        FileOutputStream fosP1 = new FileOutputStream(player1);
+        ObjectOutputStream oosP1 = new ObjectOutputStream(fosP1);
+        oosP1.writeObject(tank1);
+        // Tank2
+        File player2 = new File(pathToFolder + "/player2.bin");
+        FileOutputStream fosP2 = new FileOutputStream(player2);
+        ObjectOutputStream oosP2 = new ObjectOutputStream(fosP2);
+        oosP2.writeObject(tank2);
+        // Projectile 1
+        File proj1 = new File(pathToFolder + "/proj1.bin");
+        FileOutputStream fosProj1 = new FileOutputStream(proj1);
+        ObjectOutputStream oosProj1 = new ObjectOutputStream(fosProj1);
+        oosProj1.writeObject(projectile1);
+        // Projectile 2
+        File proj2 = new File(pathToFolder + "/proj2.bin");
+        FileOutputStream fosProj2 = new FileOutputStream(proj2);
+        ObjectOutputStream oosProj2 = new ObjectOutputStream(fosProj2);
+        oosProj2.writeObject(projectile2);
+        // Health 1
+        File health1 = new File(pathToFolder + "/health1.bin");
+        FileOutputStream fosT1 = new FileOutputStream(health1);
+        ObjectOutputStream oosT1 = new ObjectOutputStream(fosT1);
+        oosT1.write(h1);
+        // Health 2
+        File health2 = new File(pathToFolder + "/health2.bin");
+        FileOutputStream fosT2 = new FileOutputStream(health2);
+        ObjectOutputStream oosT2 = new ObjectOutputStream(fosT2);
+        oosT2.write(h2);
 //        File f = new File("game" + i);
 //        dir = f.mkdir();
 //        System.out.println(dir);
@@ -338,6 +405,14 @@ public class PlayScreen implements Screen {
         projectile1.update(dt);
         projectile2.update(dt);
         int tanksFlg=0;
+        if (tank2.fuel<100) {
+            if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+                if (tank2.fuel<100){
+                    tank2.fuel+=3;
+                }
+//                    System.out.println("no key");
+            }
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (tanksFlg==0) {
                 tanksFlg=1;
@@ -398,9 +473,13 @@ public class PlayScreen implements Screen {
             game.setScreen(new GameOverP1(game));
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.S))  {
-            serializeGame();
-        }
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.S))  {
+//            try {
+//                serializeGame();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
 
     }
 

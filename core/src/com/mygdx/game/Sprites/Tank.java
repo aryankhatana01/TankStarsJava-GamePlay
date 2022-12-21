@@ -12,6 +12,8 @@ public class Tank extends Sprite {
 
     private Texture tankimg;
 
+    public int fuel = 100;
+
     public float tankHitRadius = (float) 0.5;
 
     public Tank(World world){
