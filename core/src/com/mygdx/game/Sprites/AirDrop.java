@@ -15,7 +15,7 @@ public class AirDrop extends Sprite {
     public AirDrop(World world, float x){
         this.world = world;
         defineProj(x);
-        projimg = new Texture("fireball.png");
+        projimg = new Texture("airdrop.png");
         setBounds(0,0, 8/MyGdxGame.PPM, 8/MyGdxGame.PPM);
         setRegion(projimg);
     }
