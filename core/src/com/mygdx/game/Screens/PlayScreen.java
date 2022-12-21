@@ -20,10 +20,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Scenes.Hud;
-import com.mygdx.game.Sprites.Projectile;
-import com.mygdx.game.Sprites.Projectile2;
-import com.mygdx.game.Sprites.Tank;
-import com.mygdx.game.Sprites.Tank2;
+import com.mygdx.game.Sprites.*;
 import com.sun.tools.javac.jvm.Code;
 
 import java.io.*;
@@ -50,9 +47,12 @@ public class PlayScreen implements Screen {
 
     private int h1 = 100;
     private int h2 = 100;
+    private int airdropornot=0;
 
     private Projectile projectile1;
     private Projectile2 projectile2;
+
+    private AirDrop airdrop1, airdrop2;
 
     public PlayScreen(MyGdxGame game){
         this.game = game;
@@ -73,6 +73,9 @@ public class PlayScreen implements Screen {
 
         tank2 = new Tank2(world);
         projectile2 = new Projectile2(world, (float) 4000);
+
+        airdrop1 = new AirDrop(world, (float) 4000);
+        airdrop2 = new AirDrop(world, (float) 4000);
 
         for(PolylineMapObject obj : map.getLayers().get(1).getObjects().getByType(PolylineMapObject.class)){
             Shape shape;
@@ -398,10 +401,37 @@ public class PlayScreen implements Screen {
         }
     }
 
+    public void airdropCollision() {
+        airdrop1 = new AirDrop(world, tank1.b2body.getPosition().x);
+        airdrop2 = new AirDrop(world, tank2.b2body.getPosition().x);
+        airdropornot=1;
+
+        float airdrop1X = airdrop1.b2body.getPosition().x;
+        float airdrop1y = airdrop1.b2body.getPosition().y;
+
+        float airdrop2X = airdrop2.b2body.getPosition().x;
+        float airdrop2y = airdrop2.b2body.getPosition().y;
+
+        if ((airdrop1X >= tank1.b2body.getPosition().x-0.02) && (airdrop1X <= tank1.b2body.getPosition().x+0.02)) {
+            airdrop1.dispose();
+            h1 = 100;
+        }
+
+        if ((airdrop2X >= tank2.b2body.getPosition().x-0.02) && (airdrop2X <= tank2.b2body.getPosition().x+0.02)) {
+            airdrop2.dispose();
+            h2 = 100;
+        }
+    }
+
     public void update(float dt){
         world.step(1/60f, 6, 2);
+
         tank1.update(dt);
         tank2.update(dt);
+
+        airdrop1.update(dt);
+        airdrop2.update(dt);
+
         projectile1.update(dt);
         projectile2.update(dt);
         int tanksFlg=0;
@@ -418,6 +448,12 @@ public class PlayScreen implements Screen {
                 tanksFlg=1;
             }else {
                 tanksFlg=0;
+            }
+        }
+
+        if (h1<=30 || h2<=30) {
+            if(airdropornot==0) {
+                airdropCollision();
             }
         }
         collisionDetection();
@@ -460,6 +496,14 @@ public class PlayScreen implements Screen {
 
         game.batch.begin();
         projectile2.draw(game.batch);
+        game.batch.end();
+
+        game.batch.begin();
+        airdrop1.draw(game.batch);
+        game.batch.end();
+
+        game.batch.begin();
+        airdrop2.draw(game.batch);
         game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
