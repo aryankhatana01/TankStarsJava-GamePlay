@@ -53,6 +53,7 @@ public class PlayScreen implements Screen {
     private Projectile2 projectile2;
 
     private AirDrop airdrop1, airdrop2;
+    private ExitButton exitbutton;
 
     public PlayScreen(MyGdxGame game){
         this.game = game;
@@ -76,6 +77,8 @@ public class PlayScreen implements Screen {
 
         airdrop1 = new AirDrop(world, (float) 4000);
         airdrop2 = new AirDrop(world, (float) 4000);
+
+        exitbutton = new ExitButton(world);
 
         for(PolylineMapObject obj : map.getLayers().get(1).getObjects().getByType(PolylineMapObject.class)){
             Shape shape;
@@ -434,6 +437,8 @@ public class PlayScreen implements Screen {
 
         projectile1.update(dt);
         projectile2.update(dt);
+
+        exitbutton.update(dt);
         int tanksFlg=0;
         if (tank2.fuel<100) {
             if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
@@ -506,6 +511,15 @@ public class PlayScreen implements Screen {
         airdrop2.draw(game.batch);
         game.batch.end();
 
+        if (Gdx.input.isTouched()) {
+            System.out.println("X: " + Gdx.input.getX());
+            System.out.println("Y: " + Gdx.input.getY());
+        }
+
+        game.batch.begin();
+        exitbutton.draw(game.batch);
+        game.batch.end();
+
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
 
@@ -515,6 +529,12 @@ public class PlayScreen implements Screen {
 
         if (h2<=0) {
             game.setScreen(new GameOverP1(game));
+        }
+
+        if (Gdx.input.getX()>1110 && Gdx.input.getX()<1168 && Gdx.input.getY()<40 && Gdx.input.getY()>13) {
+            if (Gdx.input.isTouched()) {
+                Gdx.app.exit();
+            }
         }
 
 //        if (Gdx.input.isKeyJustPressed(Input.Keys.S))  {
