@@ -405,25 +405,35 @@ public class PlayScreen implements Screen {
     }
 
     public void airdropCollision() {
-        airdrop1 = new AirDrop(world, tank1.b2body.getPosition().x);
-        airdrop2 = new AirDrop(world, tank2.b2body.getPosition().x);
-        airdropornot=1;
+        if (h1<=30 || h2<=30) {
+            if (airdropornot == 0) {
+                airdrop1 = new AirDrop(world, (float) (tank1.b2body.getPosition().x + 0.36));
+                airdrop2 = new AirDrop(world, (float) (tank2.b2body.getPosition().x + 0.36));
+                airdropornot=1;
+            }
+        }
 
         float airdrop1X = airdrop1.b2body.getPosition().x;
-        float airdrop1y = airdrop1.b2body.getPosition().y;
+        //        float airdrop1y = airdrop1.b2body.getPosition().y;
 
         float airdrop2X = airdrop2.b2body.getPosition().x;
-        float airdrop2y = airdrop2.b2body.getPosition().y;
+        //        float airdrop2y = airdrop2.b2body.getPosition().y;
+        float tank1X = tank1.b2body.getPosition().x;
+        float tank2X = tank2.b2body.getPosition().x;
 
-        if ((airdrop1X >= tank1.b2body.getPosition().x-0.02) && (airdrop1X <= tank1.b2body.getPosition().x+0.02)) {
+//            System.out.println("airdrop: " + airdrop2X);
+//            System.out.println("tank: " + tank2X);
+
+        if ((airdrop1X >= tank1.b2body.getPosition().x-0.11) && (airdrop1X <= tank1.b2body.getPosition().x+0.11)) {
             airdrop1.dispose();
             h1 = 100;
         }
 
-        if ((airdrop2X >= tank2.b2body.getPosition().x-0.02) && (airdrop2X <= tank2.b2body.getPosition().x+0.02)) {
+        if ((airdrop2X >= tank2.b2body.getPosition().x-0.11) && (airdrop2X <= tank2.b2body.getPosition().x+0.11)) {
             airdrop2.dispose();
             h2 = 100;
         }
+//        }
     }
 
     public void update(float dt){
@@ -456,11 +466,13 @@ public class PlayScreen implements Screen {
             }
         }
 
-        if (h1<=30 || h2<=30) {
-            if(airdropornot==0) {
-                airdropCollision();
-            }
-        }
+//        if (h1<=30 || h2<=30) {
+////            if(airdropornot==0) {
+////                airdropCollision();
+////            }
+//            airdropCollision();
+//        }
+        airdropCollision();
         collisionDetection();
         collisionDetectionP2();
         hud.update(dt, h1, h2, convertRad2Deg(tank1.b2body.getAngle()), 180-(convertRad2Deg(tank2.b2body.getAngle())), projectile1.power, projectile2.power);
