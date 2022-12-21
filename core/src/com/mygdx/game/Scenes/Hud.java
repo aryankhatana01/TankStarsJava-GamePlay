@@ -54,12 +54,18 @@ public class Hud {
 
         p1Score = new Label(String.format("%03d", health1), new Label.LabelStyle(new BitmapFont(), Color.BLUE));
         p2Score = new Label(String.format("%03d", health2), new Label.LabelStyle(new BitmapFont(), Color.BLUE));
+        p1Score.setFontScale(0.5F);
+        p2Score.setFontScale(0.5F);
 
         p1Angle = new Label(String.format("%03f", angle1), new Label.LabelStyle(new BitmapFont(), Color.BLUE));
         p2Angle = new Label(String.format("%03f", angle2), new Label.LabelStyle(new BitmapFont(), Color.BLUE));
+        p1Angle.setFontScale(0.5F);
+        p2Angle.setFontScale(0.5F);
 
         p1Power = new Label(String.format("%03d", power1), new Label.LabelStyle(new BitmapFont(), Color.BLUE));
         p2Power = new Label(String.format("%03d", power2), new Label.LabelStyle(new BitmapFont(), Color.BLUE));
+        p1Power.setFontScale(0.5F);
+        p2Power.setFontScale(0.5F);
 
         p1Text = new Label("PLAYER 1", new Label.LabelStyle(new BitmapFont(), Color.GREEN));
         p2Text = new Label("PLAYER 2", new Label.LabelStyle(new BitmapFont(), Color.GREEN));
