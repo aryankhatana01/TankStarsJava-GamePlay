@@ -26,10 +26,9 @@ public class GameOverP1 implements Screen {
         game.batch.begin();
         game.batch.draw(img, 0, 0);
 
-//        if (Gdx.input.isTouched()) {
-//            System.out.println("X: " + Gdx.input.getX());
-//            System.out.println("Y: " + Gdx.input.getY());
-//        }
+        if (Gdx.input.isTouched()) {
+            Gdx.app.exit();
+        }
         //resume
         game.batch.end();
     }
