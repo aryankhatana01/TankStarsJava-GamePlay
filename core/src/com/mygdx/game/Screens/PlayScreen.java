@@ -26,6 +26,7 @@ import com.mygdx.game.Sprites.Tank;
 import com.mygdx.game.Sprites.Tank2;
 import com.sun.tools.javac.jvm.Code;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 public class PlayScreen implements Screen {
@@ -201,6 +202,30 @@ public class PlayScreen implements Screen {
 
     }
 
+    public String folderCreation() {
+        int i = 1;
+        boolean dir=false;
+        String path="";
+        while (dir==false) {
+            File f = new File("game" + i);
+            path = "game" + i;
+            dir = f.mkdir();
+            if (dir==true) {
+                break;
+            }
+            i++;
+        }
+        return path;
+    }
+
+    public void serializeGame() {
+        String pathToFolder = folderCreation();
+        System.out.println("assets/" + pathToFolder);
+//        File f = new File("game" + i);
+//        dir = f.mkdir();
+//        System.out.println(dir);
+    }
+
     public void collisionDetection() {
         float ProjPosX = projectile1.b2body.getPosition().x;
         float ProjPosY = projectile1.b2body.getPosition().y;
@@ -371,6 +396,10 @@ public class PlayScreen implements Screen {
 
         if (h2<=0) {
             game.setScreen(new GameOverP1(game));
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.S))  {
+            serializeGame();
         }
 
     }
